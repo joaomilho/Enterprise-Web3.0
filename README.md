@@ -22,10 +22,11 @@ specs, plus some add ons:
 
 #### More comments!
 
-Enterprise™ Web3.0™ adds a brand new types of comments to Enterprise™:
+Enterprise™ Web3.0™ adds a brand new type of comments to Enterprise™:
 
 ##### because IE comment
 
+```
 /ie
   because IE
 ie/
