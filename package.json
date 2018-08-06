@@ -1,0 +1,11 @@
+{
+  "name": "EnterpriseTM-Web3.0TM",
+  "version": "3.0.XP™",
+  "description": "Enterprise™ programming language for the Web3.0™",
+  "main": "index.js",
+  "author": "Juan Lulkin <maiz@lulk.in> (https://medium.com/@joaomilho/)",
+  "license": "ISC",
+  "devDependencies": {
+    "pegjs": "^0.10.0"
+  }
+}

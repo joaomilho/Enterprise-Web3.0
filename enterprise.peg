@@ -1,0 +1,311 @@
+/*
+ * Enterprise™ Web3.0™ Grammar
+ */
+
+{
+
+  const comment = (commentType, value) => {
+    return { type: 'comment', commentType, value: value.map(i => i.join('')).join('').trim('') }
+  }
+
+  const v = (varType, name, value) => {
+    return { type: 'var', varType, name: name.value, value }
+  }
+
+  const map = (fn, array) => {
+    var result = new Array(array.length), i
+
+    for (i = 0; i < array.length; i++)
+      result[i] = fn(array[i])
+
+    return result
+  }
+
+  const list = (head, tail, index) =>
+    [head].concat(map((item) => item[index], tail))
+
+  const reduce = (fn) => (init, array) => {
+    var result = init, i;
+
+    for (i = 0; i < array.length; i++)
+      result = fn(result, array[i])
+
+    return result
+  }
+
+
+  const binary = reduce((result, element) => ({
+    type: "binary",
+    operator: element[1],
+    left: result,
+    right: element[3]
+  }))
+}
+
+// Main stuff
+
+Start =
+  _ copyright:CopyrightComment before:__ disruptiveClass:DisruptiveClass after:__ _
+  { return [ copyright, ...before, disruptiveClass, ...after ] }
+
+DisruptiveClass "main class" =
+  "final disruptive class" __ "fdc" name:ClassName __ body:FDCBody
+  { return {type: "finalDisruptiveClass", name, body } }
+
+FDCBody "FDC body" =
+  '{' before:__ main:MainMethod after:__ '}'
+  { return [ ...before, main, ...after ] }
+
+ClassName =
+  words:(EnterpriseyWord+)
+  { return words.join('') }
+
+MainMethod "main method" =
+  "final immutable void main () {" __ body:Statements __ "}"
+  { return { type: "MainMethod", body } }
+
+Statements =
+  head:Statement tail:(__ Statement)*
+  { return list(head, tail, 1) }
+
+Statement =
+  IntDecl / FloadDecl / BoolDecl / StringDecl / NullDecl / IntListDecl /
+  StringListDecl / BoolListDecl / NullListDecl / If / While
+
+StatementEnd = ";;;"
+
+EnterpriseyWord =
+  word:("Accelerate" / "Acceleration" / "Account" / "Active" / "Activity" / "Agile" / "Agility" / "Ajax" / "Algo" / "Analytics" / "Analyze" / "Analyzer" / "Ballpark" / "Big" / "Bit" / "Bizmeth" / "Block" / "Boost" / "Bootstrap" / "Bootstraped" / "Brand" / "Business" / "Buzz" / "Car" / "Chain" / "Chart" / "Clickthrough" / "Cloud" / "Coin" / "Consumer" / "Content" / "Converge" / "Convergence" / "Coordinate" / "Coordinator" / "Complex" / "Convert" / "Convertion" / "Cost" / "Costs" / "Critical" / "Crypto" / "Currency" / "Customer" / "Cyber" / "Data" / "Deep" / "Delegate" / "Delegator" / "Design" / "Dev" / "Develop" / "Development" / "Digital" / "Disrupt" / "Disruptor" / "Disruptive" / "Diverse" / "Diversify" / "Diversifier" / "Diversity" / "Downsize" / "Downsized" / "Drive" / "Driven" / "Driver" / "Economy" / "Economic" / "Employ" / "Employee" / "Employer" / "Empowered" / "Engine" / "Enterprise" / "Entrepreneur" / "Entropy" / "Equity" / "Evolution" / "Evolve" / "Evolving" / "Eyeball" / "Eyeballs" / "Facade" / "Factory" / "Fast" / "Fee" / "Fizz" / "Flat" / "Founder" / "Founders" / "Framework" / "Free" / "Future" / "Fuzzy" / "Generate" / "Generation" / "Generator" / "Global" / "Gluten" / "Graph" / "Graphic" / "Group" / "Growth" / "Guideline" / "Guidelines" / "Hack" / "Hacking" / "Hardware" / "Holistic" / "Human" / "Hyperlocal" / "Immerse" / "Immersion" / "Immersive" / "Innovate" / "Innovative" / "Innovativity" / "Innovator" / "Internet" / "Intranet" / "Invest" / "Investment" / "Item" / "Iterator" / "Java" / "Lactose" / "Learn" / "Learning" / "Leverage" / "Line" / "List" / "Manage" / "Management" / "Manager" / "Market" / "Marketing" / "Media" / "Mega" / "Merchant" / "Message" / "Micro" / "Millenial" / "Mindshare" / "Mine" / "Mining" / "Mission" / "Module" / "Momentum" / "Money" / "Nano" / "Network" / "New" / "Next" / "Number" / "Nut" / "Object" / "Operation" / "Operator" / "Opportunity" / "Ops" / "Order" / "Organic" / "Paradigm" / "Passionate" / "Pattern" / "Person" / "Pie" / "Point" / "Policy" / "Portal" / "Product" / "Proof" / "Provable" / "Proxy" / "Resource" / "Return" / "Roadmap" / "Scalable" / "Science" / "Self" / "Service" / "Services" / "Share" / "Sharing" / "Simple" / "Skeuomorphic" / "Speed" / "Software" / "Solution" / "Square" / "Startup" / "Streamline" / "Streamlined" / "Super" / "Sustainability" / "Sustainable" / "Synergic" / "Synergy" / "System" / "Tax" / "Text" / "Time" / "Trade" / "Trans" / "Upsize" / "Upsizer" / "User" / "Viral" / "Virality" / "Viralize" / "Visual" / "Web" / "World")
+  { return word }
+
+// Spaces and comments stuff
+
+__ = values:(S / LineTerminatorSequence / Comment)* { return values.filter(Boolean) }
+
+_ = S*
+
+S "whitespace" = ("\t" / "\v" / "\f" / " " / "\u00A0" / "\uFEFF") { return null }
+
+LineTerminatorSequence "EOL" = ("\n" / "\r\n" / "\r" / "\u2028" / "\u2029") { return null }
+
+Comment "comment" = MultiLineComment / NDAComment / PassiveAggressiveComment / InterviewComment / TimeToMarketComment / SingleLineComment
+
+MultiLineComment "multiline comment" =
+  "/*" value:(!"*/" SourceChar)* "*/"
+  { return comment("multiline", value) }
+
+CopyrightComment "copyright comment" =
+  "/©" value:((!"©/" SourceChar)*) "©/"
+  { return comment("copyright", value) }
+
+NDAComment "NDA comment" =
+  "/NDA" value:(!"NDA/" SourceChar)* "NDA/"
+  { return comment("nda", value) }
+
+PassiveAggressiveComment "passive agressive comment" =
+  "/?" value:(!"?/" SourceChar)* "?/"
+  { return comment("passiveAggressive", value) }
+
+InterviewComment "interview comment" =
+  "/¯\_(ツ)_/¯" value:(!"¯\_(ツ)_/¯/" SourceChar)* "¯\_(ツ)_/¯/"
+  { return comment("interview", value) }
+
+TimeToMarketComment "time to market comment" =
+  "/soon" value:(!"soon/" SourceChar)* "soon/"
+  { return comment("timeToMarket", value) }
+
+SingleLineComment "single line comment" =
+  "//" value:(!LineTerminator SourceChar)*
+  { return comment("single", value) }
+
+SourceChar = .
+
+LineTerminator = [\n\r\u2028\u2029]
+
+// Var stuff
+
+C = [a-zA-Z0-9]
+VarName = [a-z] C? C? C? C? C? C? C? { return { type: "varName", value: text() } }
+
+// String stuff
+
+StringDecl =
+  "var" _ "String" _ name:VarName _ "=" _ value:StringLiteral _ StatementEnd
+  { return v("string", name, value) }
+
+StringLiteral "string" =
+  '"' chars:DoubleStringChar* '"'
+  { return chars.join("") }
+
+DoubleStringChar =
+  "\\" sequence:CharEscapeSequence { return sequence }
+  / !'"' SourceChar { return text() }
+
+CharEscapeSequence = SingleEscapeChar / NonEscapeChar
+
+SingleEscapeChar =
+  "'"
+  / '"'
+  / "\\"
+  / "b"  { return "\b" }
+  / "f"  { return "\f" }
+  / "n"  { return "\n" }
+  / "r"  { return "\r" }
+  / "t"  { return "\t" }
+  / "v"  { return "\x0B" }
+
+NonEscapeChar = !(EscapeChar / LineTerminator) SourceChar { return text() }
+
+EscapeChar = SingleEscapeChar / DecimalDigit / "x" / "u"
+
+// Bool stuff
+
+BoolDecl =
+  "var" _ "Bool" _ name:VarName _ "=" _ value:BoolLiteral _ StatementEnd
+  { return v("bool", name, value) }
+
+BoolLiteral =
+  ("True" / "False")
+  { return text() === "True" }
+
+// Null stuff
+
+NullDecl =
+  "var" _ "Null" _ name:VarName _ "=" _ value:NullLiteral _ StatementEnd
+  { return v("null", name, value) }
+
+NullLiteral =
+  "Null"
+  { return null }
+
+// Integer stuff
+
+IntDecl =
+  "var" _ "Int" _ name:NumericVarName _ "=" _ value:IntLiteral _ StatementEnd
+  { return v("int", name, value) }
+
+IntLiteral =
+  "0" / NonZeroDigit DecimalDigit*
+  { return parseInt(text()) }
+
+// Float stuff
+
+FloadDecl =
+  "var" _ "Float" _ name:NumericVarName _ "=" _ value:FloatLiteral _ StatementEnd
+  { return v("float", name, value) }
+
+FloatLiteral =
+  IntLiteral ("." DecimalDigit+)?
+  { return parseFloat(text()) }
+
+// General numeric stuff
+
+NumericVarName = [a-z]
+DecimalDigit = [0-9]
+NonZeroDigit = [1-9]
+
+// List Int stuff
+
+IntListDecl =
+  "var" _ "List" _ "Int" _ name:VarName _ "=" _ value:IntListLiteral _ StatementEnd
+  { return v("list:int", name, value) }
+
+IntListLiteral =
+  "[" __ elements:IntElementList? __ "]"
+  { return elements || [] }
+
+IntElementList =
+  head:( element:IntLiteral { return element } )
+  tail:( __ "," __ element:IntLiteral { return element } )*
+  { return [head, ...tail] }
+
+// List String stuff
+
+StringListDecl =
+  "var" _ "List" _ "String" _ name:VarName _ "=" _ value:StringListLiteral _ StatementEnd
+  { return v("list:string", name, value) }
+
+StringListLiteral =
+  "[" __ elements:StringElementList? __ "]"
+  { return elements || [] }
+
+StringElementList =
+  head:( element:StringLiteral { return element } )
+  tail:( __ "," __ element:StringLiteral { return element } )*
+  { return [head, ...tail] }
+
+// List Bool stuff
+
+BoolListDecl =
+  "var" _ "List" _ "Bool" _ name:VarName _ "=" _ value:BoolListLiteral _ StatementEnd
+  { return v("list:bool", name, value) }
+
+BoolListLiteral =
+  "[" __ elements:BoolElementList? __ "]"
+  { return elements || [] }
+
+BoolElementList =
+  head:( element:BoolLiteral { return element } )
+  tail:( __ "," __ element:BoolLiteral { return element } )*
+  { return [head, ...tail] }
+
+// List Null stuff
+
+NullListDecl =
+  "var" _ "List" _ "Null" _ name:VarName _ "=" _ value:NullListLiteral _ StatementEnd
+  { return v("list:null", name, value) }
+
+NullListLiteral =
+  "[" __ elements:NullElementList? __ "]"
+  { return elements || [] }
+
+NullElementList =
+  head:( element:NullLiteral { return element } )
+  tail:( __ "," __ element:NullLiteral { return element } )*
+  { return [head, ...tail] }
+
+
+// Conditional stuff
+
+If "if" =
+  IfToken __ "(" __ test:Testable __ ")" __ "{" __ then:Statements __ "}" __ ElseToken __ "{" __ els:Statements __ "}"
+  { return {type: "if", test, then, else: els }} /
+  IfToken __ "(" __ test:Testable __ ")" __ "{" __ then:Statements* __ "}"
+  { return {type: "if", test, then, else: [] } }
+
+IfToken = "if"
+ElseToken = "else"
+
+// Iterator stuff
+
+While "while" =
+  WhileToken __ "(" __ test:Testable __ ")" __ "{" __ body:Statements* __ "}"
+  { return {type: "while", test, body } }
+
+WhileToken = "while"
+
+// Testable stuff
+
+Testable = Binary
+
+Binary =
+  head:BinaryUnit tail:(_ Op _ BinaryUnit)*
+  { return binary(head, tail) }
+
+BinaryUnit =
+  "(" __ expr:Binary __ ")" { return Object.assign({ parens: true }, expr) }
+  / Unary
+
+Unary =
+  Operable / operator:UnaryOp __ argument:Unary
+  { return {type: 'unary',  operator, argument} }
+
+UnaryOp = "!"
+MathOp = "*" / "/" / "%" / "+" / "-"
+RelOp = "<=" / ">=" / "<" / ">"
+EqOp = "==" / "!="
+LogOp = "&&" / "||"
+
+Op = MathOp / RelOp / EqOp / LogOp
+
+Operable = value:(VarName / BoolLiteral / IntLiteral) { return {type: 'operable', value } }
