@@ -88,3 +88,14 @@ final disruptive class fdcFizzBuzzDelegator {
   }
 }
 ```
+
+
+## Usage
+
+```
+E™ ast <file> // shows AST for Enterprise™ source file
+E™ compile <file> // compiles Enterprise™ source file to JS
+E™ ast <file> // evals Enterprise™ source file in NodeJS
+
+E™ ast <file> --turbo // the turbo option optimizes Enterprise™ code based on exclusive copyrighted technology
+```
