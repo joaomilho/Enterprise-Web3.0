@@ -45,8 +45,8 @@
 // Main stuff
 
 Start =
-  _ copyright:CopyrightComment before:__ disruptiveClass:DisruptiveClass after:__ _
-  { return [ copyright, ...before, disruptiveClass, ...after ] }
+  copyright:CopyrightComment __ imports:HeaderInstructions __ disruptiveClass:DisruptiveClass __
+  { return [ copyright, ...imports, disruptiveClass ] }
 
 DisruptiveClass "main class" =
   "final disruptive class" __ "fdc" name:ClassName __ body:FDCBody
@@ -62,15 +62,15 @@ ClassName =
 
 MainMethod "main method" =
   "final immutable void main () {" __ body:Statements __ "}"
-  { return { type: "MainMethod", body } }
+  { return { type: "mainMethod", body } }
 
 Statements =
   head:Statement tail:(__ Statement)*
   { return list(head, tail, 1) }
 
 Statement =
-  IntDecl / FloadDecl / BoolDecl / StringDecl / NullDecl / IntListDecl /
-  StringListDecl / BoolListDecl / NullListDecl / If / While
+  Mutate / IntDecl / FloadDecl / BoolDecl / StringDecl / NullDecl / IntListDecl /
+  StringListDecl / BoolListDecl / NullListDecl / If / While / Call
 
 StatementEnd = ";;;"
 
@@ -82,13 +82,15 @@ EnterpriseyWord =
 
 __ = values:(S / LineTerminatorSequence / Comment)* { return values.filter(Boolean) }
 
-_ = S*
+_ = (S / LineTerminatorSequence)*
 
 S "whitespace" = ("\t" / "\v" / "\f" / " " / "\u00A0" / "\uFEFF") { return null }
 
 LineTerminatorSequence "EOL" = ("\n" / "\r\n" / "\r" / "\u2028" / "\u2029") { return null }
 
-Comment "comment" = MultiLineComment / NDAComment / PassiveAggressiveComment / InterviewComment / TimeToMarketComment / SingleLineComment
+Comment "comment" =
+  MultiLineComment / NDAComment / PassiveAggressiveComment / InterviewComment /
+  TimeToMarketComment / SingleLineComment
 
 MultiLineComment "multiline comment" =
   "/*" value:(!"*/" SourceChar)* "*/"
@@ -126,6 +128,7 @@ LineTerminator = [\n\r\u2028\u2029]
 
 C = [a-zA-Z0-9]
 VarName = [a-z] C? C? C? C? C? C? C? { return { type: "varName", value: text() } }
+
 
 // String stuff
 
@@ -186,7 +189,7 @@ IntDecl =
 
 IntLiteral =
   "0" / NonZeroDigit DecimalDigit*
-  { return parseInt(text()) }
+  { return parseInt(text()) * 1 }
 
 // Float stuff
 
@@ -200,7 +203,7 @@ FloatLiteral =
 
 // General numeric stuff
 
-NumericVarName = [a-z]
+NumericVarName = t:[a-z] { return { type: "numVarName", value: text() } }
 DecimalDigit = [0-9]
 NonZeroDigit = [1-9]
 
@@ -270,7 +273,7 @@ NullElementList =
 If "if" =
   IfToken __ "(" __ test:Testable __ ")" __ "{" __ then:Statements __ "}" __ ElseToken __ "{" __ els:Statements __ "}"
   { return {type: "if", test, then, else: els }} /
-  IfToken __ "(" __ test:Testable __ ")" __ "{" __ then:Statements* __ "}"
+  IfToken __ "(" __ test:Testable __ ")" __ "{" __ then:Statements __ "}"
   { return {type: "if", test, then, else: [] } }
 
 IfToken = "if"
@@ -279,7 +282,7 @@ ElseToken = "else"
 // Iterator stuff
 
 While "while" =
-  WhileToken __ "(" __ test:Testable __ ")" __ "{" __ body:Statements* __ "}"
+  WhileToken __ "(" __ test:Testable __ ")" __ "{" __ body:Statements __ "}"
   { return {type: "while", test, body } }
 
 WhileToken = "while"
@@ -308,4 +311,39 @@ LogOp = "&&" / "||"
 
 Op = MathOp / RelOp / EqOp / LogOp
 
-Operable = value:(VarName / BoolLiteral / IntLiteral) { return {type: 'operable', value } }
+Operable = value:(VarName / BoolLiteral / IntLiteral / StringLiteral / NullLiteral) { return value }
+
+// Import stuff
+
+HeaderInstructions =
+  head:Import tail:(__ Import)*
+  { return list(head, tail, 1) }
+
+Lib = "log.delegator.dlLogDelegator" { return 'dlLogDelegator' }
+Library =
+  "com.disruptive." lib:Lib
+  { return lib }
+
+Import "import" =
+  "import" _ "disruptive" _ "library" _ lib:Library _ StatementEnd
+  { return { type: 'import', lib } }
+
+// Call stuff
+
+Call =
+  callee:Callee _ '(' _ args:Arguments _ ')' _ StatementEnd
+  { return { type: "call", callee, args } }
+
+
+Callee = [a-zA-Z]+ { return text() }
+
+Arguments = Argument*
+
+Argument = StringLiteral / BoolLiteral / NullLiteral / IntLiteral / FloatLiteral / NumericVarName / VarName
+
+// Mutate stuff
+// For time constraints, only implements inc in numbers
+
+Mutate =
+  "mutate" _ v:NumericVarName _ "++" _ StatementEnd
+  { return { type: 'mutate', var:v.value, mutation: '++' }}
