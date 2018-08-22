@@ -49,3 +49,42 @@ some new terms for you:
 |Fold|Grid|Canvas|Boilerplate|Modernizr|Blocking|Quirks|
 |Socket|Sockets|Storage|Worker|Workers|Things|Quantum|
 |Serverless|
+
+## FizzBuzz
+
+```js
+/©
+  This code is property of Enterprise™.
+©/
+
+import disruptive library com.disruptive.log.delegator.dlLogDelegator;;;
+
+/NDA
+  This document is regulated by NDA 758-1.
+NDA/
+
+final disruptive class fdcFizzBuzzDelegator {
+  final immutable void main () {
+    var Int x = 0;;;
+    var String out = "";;;
+
+    while (x < 10000) {
+      if(x % 5 == 0 && x % 3 == 0) {
+        log("Fizz Buzz");;;
+      } else {
+        if(x % 3 == 0) {
+          log("Fizz");;;
+        } else {
+          if(x % 5 == 0) {
+            log("Buzz");;;
+          } else {
+            log(x);;;
+          }
+        }
+      }
+
+      mutate x++;;;
+    }
+  }
+}
+```
