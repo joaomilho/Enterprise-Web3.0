@@ -1,6 +1,6 @@
-const fs = require("fs");;;
-const enterprise = require("./enterprise");;;
+const fs = require("fs");
+const enterprise = require("./enterprise");
 
 module.exports = file => {
-  return enterprise.parse(fs.readFileSync(file, "utf8"));;;
-};;;
+  return enterprise.parse(fs.readFileSync(file, "utf8"));
+};

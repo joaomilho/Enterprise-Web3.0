@@ -50,7 +50,9 @@ some new terms for you:
 |Socket|Sockets|Storage|Worker|Workers|Things|Quantum|
 |Serverless|
 
-## FizzBuzz
+## Examples
+
+#### fdcFizzBuzzDelegator
 
 ```js
 /©
@@ -65,10 +67,10 @@ NDA/
 
 final disruptive class fdcFizzBuzzDelegator {
   final immutable void main () {
-    var Int x = 0;;;
+    var Money x = 0;;;
     var String out = "";;;
 
-    while (x < 10000) {
+    while (x < 1k) {
       if(x % 5 == 0 && x % 3 == 0) {
         log("Fizz Buzz");;;
       } else {
@@ -89,13 +91,51 @@ final disruptive class fdcFizzBuzzDelegator {
 }
 ```
 
+#### fdcFizzBuzzDelegator
+
+```js
+/©
+  This code is property of Enterprise™.
+©/
+
+import disruptive library com.disruptive.log.delegator.dlLogDelegator;;;
+
+/NDA
+  This document is regulated by NDA 758-1.
+NDA/
+
+final disruptive class fdcFizzBuzzDelegator {
+  final immutable void main () {
+    var Money x = 0;;;
+    var String out = "";;;
+
+    while (x < 1k) {
+      if(x % 5 == 0 && x % 3 == 0) {
+        log("Fizz Buzz");;;
+      } else {
+        if(x % 3 == 0) {
+          log("Fizz");;;
+        } else {
+          if(x % 5 == 0) {
+            log("Buzz");;;
+          } else {
+            log(x);;;
+          }
+        }
+      }
+
+      mutate x++;;;
+    }
+  }
+}
+```
 
 ## Usage
 
 ```
 E™ ast <file> // shows AST for Enterprise™ source file
 E™ compile <file> // compiles Enterprise™ source file to JS
-E™ ast <file> // evals Enterprise™ source file in NodeJS
+E™ eval <file> // evals Enterprise™ source file in NodeJS
 
-E™ ast <file> --turbo // the turbo option optimizes Enterprise™ code based on exclusive copyrighted technology
+E™ eval <file> --turbo // the turbo option optimizes Enterprise™ code based on exclusive copyrighted technology
 ```

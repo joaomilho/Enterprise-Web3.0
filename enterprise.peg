@@ -69,13 +69,13 @@ Statements =
   { return list(head, tail, 1) }
 
 Statement =
-  Mutate / IntDecl / FloadDecl / BoolDecl / StringDecl / NullDecl / IntListDecl /
+  Mutate / MoneyDecl / BoolDecl / StringDecl / NullDecl / MoneyListDecl /
   StringListDecl / BoolListDecl / NullListDecl / If / While / Call
 
 StatementEnd = ";;;"
 
 EnterpriseyWord =
-  word:("Accelerate" / "Acceleration" / "Account" / "Active" / "Activity" / "Agile" / "Agility" / "Ajax" / "Algo" / "Analytics" / "Analyze" / "Analyzer" / "Ballpark" / "Big" / "Bit" / "Bizmeth" / "Block" / "Boost" / "Bootstrap" / "Bootstraped" / "Brand" / "Business" / "Buzz" / "Car" / "Chain" / "Chart" / "Clickthrough" / "Cloud" / "Coin" / "Consumer" / "Content" / "Converge" / "Convergence" / "Coordinate" / "Coordinator" / "Complex" / "Convert" / "Convertion" / "Cost" / "Costs" / "Critical" / "Crypto" / "Currency" / "Customer" / "Cyber" / "Data" / "Deep" / "Delegate" / "Delegator" / "Design" / "Dev" / "Develop" / "Development" / "Digital" / "Disrupt" / "Disruptor" / "Disruptive" / "Diverse" / "Diversify" / "Diversifier" / "Diversity" / "Downsize" / "Downsized" / "Drive" / "Driven" / "Driver" / "Economy" / "Economic" / "Employ" / "Employee" / "Employer" / "Empowered" / "Engine" / "Enterprise" / "Entrepreneur" / "Entropy" / "Equity" / "Evolution" / "Evolve" / "Evolving" / "Eyeball" / "Eyeballs" / "Facade" / "Factory" / "Fast" / "Fee" / "Fizz" / "Flat" / "Founder" / "Founders" / "Framework" / "Free" / "Future" / "Fuzzy" / "Generate" / "Generation" / "Generator" / "Global" / "Gluten" / "Graph" / "Graphic" / "Group" / "Growth" / "Guideline" / "Guidelines" / "Hack" / "Hacking" / "Hardware" / "Holistic" / "Human" / "Hyperlocal" / "Immerse" / "Immersion" / "Immersive" / "Innovate" / "Innovative" / "Innovativity" / "Innovator" / "Internet" / "Intranet" / "Invest" / "Investment" / "Item" / "Iterator" / "Java" / "Lactose" / "Learn" / "Learning" / "Leverage" / "Line" / "List" / "Manage" / "Management" / "Manager" / "Market" / "Marketing" / "Media" / "Mega" / "Merchant" / "Message" / "Micro" / "Millenial" / "Mindshare" / "Mine" / "Mining" / "Mission" / "Module" / "Momentum" / "Money" / "Nano" / "Network" / "New" / "Next" / "Number" / "Nut" / "Object" / "Operation" / "Operator" / "Opportunity" / "Ops" / "Order" / "Organic" / "Paradigm" / "Passionate" / "Pattern" / "Person" / "Pie" / "Point" / "Policy" / "Portal" / "Product" / "Proof" / "Provable" / "Proxy" / "Resource" / "Return" / "Roadmap" / "Scalable" / "Science" / "Self" / "Service" / "Services" / "Share" / "Sharing" / "Simple" / "Skeuomorphic" / "Speed" / "Software" / "Solution" / "Square" / "Startup" / "Streamline" / "Streamlined" / "Super" / "Sustainability" / "Sustainable" / "Synergic" / "Synergy" / "System" / "Tax" / "Text" / "Time" / "Trade" / "Trans" / "Upsize" / "Upsizer" / "User" / "Viral" / "Virality" / "Viralize" / "Visual" / "Web" / "World" /
+  word:("Accelerate" / "Acceleration" / "Account" / "Active" / "Activity" / "Agile" / "Agility" / "Ajax" / "Algo" / "Analytics" / "Analyze" / "Analyzer" / "Ballpark" / "Big" / "Bit" / "Bizmeth" / "Block" / "Boost" / "Bootstrap" / "Bootstraped" / "Brand" / "Business" / "Buzz" / "Car" / "Chain" / "Chart" / "Clickthrough" / "Cloud" / "Coin" / "Consumer" / "Content" / "Converge" / "Convergence" / "Coordinate" / "Coordinator" / "Complex" / "Convert" / "Convertion" / "Cost" / "Costs" / "Critical" / "Crypto" / "Currency" / "Customer" / "Cyber" / "Data" / "Deep" / "Delegate" / "Delegator" / "Design" / "Dev" / "Develop" / "Development" / "Digital" / "Disrupt" / "Disruptor" / "Disruptive" / "Diverse" / "Diversify" / "Diversifier" / "Diversity" / "Downsize" / "Downsized" / "Drive" / "Driven" / "Driver" / "Economy" / "Economic" / "Employ" / "Employee" / "Employer" / "Empowered" / "Engine" / "Enterprise" / "Entrepreneur" / "Entropy" / "Equity" / "Evolution" / "Evolve" / "Evolving" / "Eyeball" / "Eyeballs" / "Evaluation" / "Evaluator" / "Facade" / "Factory" / "Fast" / "Fee" / "Fizz" / "Flat" / "Founder" / "Founders" / "Framework" / "Free" / "Future" / "Fuzzy" / "Generate" / "Generation" / "Generator" / "Global" / "Gluten" / "Graph" / "Graphic" / "Group" / "Growth" / "Guideline" / "Guidelines" / "Hack" / "Hacking" / "Hardware" / "Holistic" / "Human" / "Hyperlocal" / "Immerse" / "Immersion" / "Immersive" / "Innovate" / "Innovative" / "Innovativity" / "Innovator" / "Internet" / "Intranet" / "Invest" / "Investment" / "Item" / "Iterator" / "Java" / "Lactose" / "Learn" / "Learning" / "Leverage" / "Line" / "List" / "Manage" / "Management" / "Manager" / "Market" / "Marketing" / "Media" / "Mega" / "Merchant" / "Message" / "Micro" / "Millenial" / "Mindshare" / "Mine" / "Mining" / "Mission" / "Module" / "Momentum" / "Money" / "Nano" / "Network" / "New" / "Next" / "Number" / "Nut" / "Object" / "Operation" / "Operator" / "Opportunity" / "Ops" / "Order" / "Organic" / "Paradigm" / "Passionate" / "Pattern" / "Person" / "Pie" / "Point" / "Policy" / "Portal" / "Product" / "Proof" / "Provable" / "Proxy" / "Resource" / "Return" / "Roadmap" / "Scalable" / "Science" / "Self" / "Service" / "Services" / "Share" / "Sharing" / "Simple" / "Skeuomorphic" / "Speed" / "Software" / "Solution" / "Square" / "Startup" / "Streamline" / "Streamlined" / "Super" / "Sustainability" / "Sustainable" / "Synergic" / "Synergy" / "System" / "Tax" / "Text" / "Time" / "Trade" / "Trans" / "Upsize" / "Upsizer" / "User" / "Viral" / "Virality" / "Viralize" / "Visual" / "Web" / "World" /
   "Serverless" / "Server" / "Side" / "Render" / "Universal" / "Native" / "Mobile" / "Angular" /
   "React"	/ "Component" / "Cache" / "Domain" / "Frontend" / "Full" / "Fullstack" /
   "Git" / "Hub" / "Information" / "Script" / "Query" / "Minification" / "First" /
@@ -84,7 +84,7 @@ EnterpriseyWord =
   "Scrolling" / "Infinite" / "Landing" / "Hero" / "Mock" / "Mockup" / "Parallax" /
   "Meta" / "Tag" / "Template" / "Wireframe" / "Vector" / "Metro" / "Above" /
   "Fold" / "Grid" / "Canvas" / "Boilerplate" / "Modernizr" / "Blocking" / "Quirks" /
-  "Sockets" / "Socket" / "Storage" / "Worker" / "Things" / "Quantum")
+  "Sockets" / "Socket" / "Storage" / "Worker" / "Things" / "Unicorn" / "Quantum")
   { return word }
 
 // Spaces and comments stuff
@@ -190,45 +190,47 @@ NullLiteral =
   "Null"
   { return null }
 
-// Integer stuff
+// Money stuff
 
-IntDecl =
-  "var" _ "Int" _ name:NumericVarName _ "=" _ value:IntLiteral _ StatementEnd
-  { return v("int", name, value) }
+MoneyDecl =
+  "var" _ "Money" _ name:VarName _ "=" _ value:MoneyLiteral _ StatementEnd
+  { return v("money", name, value) }
 
-IntLiteral =
-  "0" / NonZeroDigit DecimalDigit*
-  { return parseInt(text()) * 1 }
-
-// Float stuff
-
-FloadDecl =
-  "var" _ "Float" _ name:NumericVarName _ "=" _ value:FloatLiteral _ StatementEnd
-  { return v("float", name, value) }
+MoneyLiteral =
+  n:(FloatLiteral) mm:(MoneyMaker)?
+  { return parseFloat(n) * (mm ? mm : 1) }
 
 FloatLiteral =
   IntLiteral ("." DecimalDigit+)?
   { return parseFloat(text()) }
 
+MoneyMaker =
+  "k" { return 1000 } /
+  "M" { return 1000 * 1000 } /
+  "B" { return 1000 * 1000 * 1000 } /
+  "🦄" { return 1000 * 1000 * 1000 } /
+  "T" { return 1000 * 1000 * 1000 * 1000 }
+
+IntLiteral = "0" / NonZeroDigit DecimalDigit*
+
 // General numeric stuff
 
-NumericVarName = t:[a-z] { return { type: "numVarName", value: text() } }
 DecimalDigit = [0-9]
 NonZeroDigit = [1-9]
 
-// List Int stuff
+// List Money stuff
 
-IntListDecl =
-  "var" _ "List" _ "Int" _ name:VarName _ "=" _ value:IntListLiteral _ StatementEnd
+MoneyListDecl =
+  "var" _ "List" _ "Money" _ name:VarName _ "=" _ value:MoneyListLiteral _ StatementEnd
   { return v("list:int", name, value) }
 
-IntListLiteral =
-  "[" __ elements:IntElementList? __ "]"
+MoneyListLiteral =
+  "[" __ elements:MoneyElementList? __ "]"
   { return elements || [] }
 
-IntElementList =
-  head:( element:IntLiteral { return element } )
-  tail:( __ "," __ element:IntLiteral { return element } )*
+MoneyElementList =
+  head:( element:MoneyLiteral { return element } )
+  tail:( __ "," __ element:MoneyLiteral { return element } )*
   { return [head, ...tail] }
 
 // List String stuff
@@ -320,7 +322,7 @@ LogOp = "&&" / "||"
 
 Op = MathOp / RelOp / EqOp / LogOp
 
-Operable = value:(VarName / BoolLiteral / IntLiteral / StringLiteral / NullLiteral) { return value }
+Operable = value:(VarName / BoolLiteral / MoneyLiteral / StringLiteral / NullLiteral) { return value }
 
 // Import stuff
 
@@ -343,16 +345,15 @@ Call =
   callee:Callee _ '(' _ args:Arguments _ ')' _ StatementEnd
   { return { type: "call", callee, args } }
 
-
 Callee = [a-zA-Z]+ { return text() }
 
 Arguments = Argument*
 
-Argument = StringLiteral / BoolLiteral / NullLiteral / IntLiteral / FloatLiteral / NumericVarName / VarName
+Argument = StringLiteral / BoolLiteral / NullLiteral / MoneyLiteral / VarName
 
 // Mutate stuff
 // For time constraints, only implements inc in numbers
 
 Mutate =
-  "mutate" _ v:NumericVarName _ "++" _ StatementEnd
+  "mutate" _ v:VarName _ "++" _ StatementEnd
   { return { type: 'mutate', var:v.value, mutation: '++' }}

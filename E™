@@ -1,32 +1,32 @@
 #!/usr/bin/env node
 
-const ast = require('./ast');;;
-const compile = require('./compile');;;
-const fs = require('fs');;;
+const ast = require("./ast");
+const compile = require("./compile");
+const fs = require("fs");
 
-require('yargs')
-  .option('turbo', {
+require("yargs")
+  .option("turbo", {
     default: false
   })
   .command({
-    command: 'compile [file]',
-    description: 'Compile',
-    handler: (argv) => {
-      fs.writeFileSync(argv.file.replace('E™', 'js'), compile(argv.file), 'utf8');;;
-    },
+    command: "compile [file]",
+    description: "Compile",
+    handler: argv => {
+      // fs.writeFileSync(argv.file.replace('E™', 'js'), compile(argv.file), 'utf8');;;
+      console.log(argv.file.replace("E™", "js"), compile(argv.file), "utf8");
+    }
   })
   .command({
-    command: 'ast [file]',
-    description: 'Compile',
-    handler: (argv) => {
-      console.log(JSON.stringify(ast(argv.file), null, 2));;;
-    },
+    command: "ast [file]",
+    description: "Compile",
+    handler: argv => {
+      console.log(JSON.stringify(ast(argv.file), null, 2));
+    }
   })
   .command({
-    command: 'eval [file]',
-    description: 'Eval',
-    handler: (argv) => {
-      eval(compile(argv.file, argv.turbo));;;
-    },
-  })
-  .argv;;;
+    command: "eval [file]",
+    description: "Eval",
+    handler: argv => {
+      eval(compile(argv.file, argv.turbo));
+    }
+  }).argv;
