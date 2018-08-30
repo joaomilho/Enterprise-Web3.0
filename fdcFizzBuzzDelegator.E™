@@ -2,7 +2,7 @@
   This code is property of Enterprise™.
 ©/
 
-import disruptive library com.disruptive.log.delegator.dlLogDelegator;;;
+import disruptive library com.disruptive.IO.write.delegator.dlIOWriteDelegator;;;
 
 /NDA
   This document is regulated by NDA 758-1.
@@ -15,15 +15,15 @@ final disruptive class fdcFizzBuzzDelegator {
 
     while (x < 1k) {
       if(x % 5 == 0 && x % 3 == 0) {
-        log("Fizz Buzz");;;
+        write("Fizz Buzz");;;
       } else {
         if(x % 3 == 0) {
-          log("Fizz");;;
+          write("Fizz");;;
         } else {
           if(x % 5 == 0) {
-            log("Buzz");;;
+            write("Buzz");;;
           } else {
-            log(x);;;
+            write(x);;;
           }
         }
       }

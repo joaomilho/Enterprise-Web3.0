@@ -3,6 +3,41 @@
  */
 
 {
+  global.includedDLs = {}
+
+  const CompileError = require('./CompileError')
+  const dls = require('./dls')
+
+
+
+  const call = (callee, args, location) => {
+    if(global.includedDLs[callee]) {
+      return { type: "call", callee, args }
+    }
+
+    throw new CompileError({
+      message: `Invalid call '${callee}' at ${JSON.stringify(location)}`,
+      type: 'invalid_call',
+      value: callee,
+      location
+    })
+  }
+
+  const lib = (libName, location) => {
+    if(dls[libName]) {
+      const {fn, type} = require(`./disruptiveLibs/${dls[libName]}`)
+
+      global.includedDLs[fn] = type
+      return dls[libName]
+    }
+
+    throw new CompileError({
+      message: `Invalid lib ${libName} at ${JSON.stringify(location)}`,
+      type: 'invalid_lib',
+      value: libName,
+      location
+    })
+  }
 
   const comment = (commentType, value) => {
     return { type: 'comment', commentType, value: value.map(i => i.join('')).join('').trim('') }
@@ -70,7 +105,7 @@ Statements =
 
 Statement =
   Mutate / MoneyDecl / BoolDecl / StringDecl / NullDecl / MoneyListDecl /
-  StringListDecl / BoolListDecl / NullListDecl / If / While / Call
+  StringListDecl / BoolListDecl / NullListDecl / If / While / CallStatement
 
 StatementEnd = ";;;"
 
@@ -142,7 +177,7 @@ VarName = [a-z] C? C? C? C? C? C? C? { return { type: "varName", value: text() }
 // String stuff
 
 StringDecl =
-  "var" _ "String" _ name:VarName _ "=" _ value:StringLiteral _ StatementEnd
+  "var" _ "String" _ name:VarName _ "=" _ value:(StringLiteral / Call) _ StatementEnd
   { return v("string", name, value) }
 
 StringLiteral "string" =
@@ -311,7 +346,7 @@ BinaryUnit =
   / Unary
 
 Unary =
-  Operable / operator:UnaryOp __ argument:Unary
+  Call / Operable / operator:UnaryOp __ argument:Unary
   { return {type: 'unary',  operator, argument} }
 
 UnaryOp = "!"
@@ -330,7 +365,12 @@ HeaderInstructions =
   head:Import tail:(__ Import)*
   { return list(head, tail, 1) }
 
-Lib = "log.delegator.dlLogDelegator" { return 'dlLogDelegator' }
+
+
+Lib =
+  [a-z.]i+ { return lib(text(), location()) }
+
+
 Library =
   "com.disruptive." lib:Lib
   { return lib }
@@ -341,13 +381,23 @@ Import "import" =
 
 // Call stuff
 
+CallStatement =
+  call:Call _ StatementEnd
+  { return call }
+
 Call =
-  callee:Callee _ '(' _ args:Arguments _ ')' _ StatementEnd
-  { return { type: "call", callee, args } }
+  callee:Callee _ '(' _ args:Arguments _ ')'
+  {
+    return call(callee, args, location())
+  }
 
 Callee = [a-zA-Z]+ { return text() }
 
-Arguments = Argument*
+// TODO: this makes 1 mandatory, but should not be
+Arguments =
+  head:( element:Argument { return element } )
+  tail:( __ "," __ element:Argument { return element } )*
+  { return [head, ...tail] }
 
 Argument = StringLiteral / BoolLiteral / NullLiteral / MoneyLiteral / VarName
 

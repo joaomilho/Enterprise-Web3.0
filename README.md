@@ -54,12 +54,14 @@ some new terms for you:
 
 #### fdcFizzBuzzDelegator
 
+Nail your next interview.
+
 ```js
 /©
   This code is property of Enterprise™.
 ©/
 
-import disruptive library com.disruptive.log.delegator.dlLogDelegator;;;
+import disruptive library com.disruptive.IO.write.delegator.dlIOWriteDelegator;;;
 
 /NDA
   This document is regulated by NDA 758-1.
@@ -72,15 +74,15 @@ final disruptive class fdcFizzBuzzDelegator {
 
     while (x < 1k) {
       if(x % 5 == 0 && x % 3 == 0) {
-        log("Fizz Buzz");;;
+        write("Fizz Buzz");;;
       } else {
         if(x % 3 == 0) {
-          log("Fizz");;;
+          write("Fizz");;;
         } else {
           if(x % 5 == 0) {
-            log("Buzz");;;
+            write("Buzz");;;
           } else {
-            log(x);;;
+            write(x);;;
           }
         }
       }
@@ -91,40 +93,47 @@ final disruptive class fdcFizzBuzzDelegator {
 }
 ```
 
-#### fdcFizzBuzzDelegator
+#### fdcUnicornEvaluator
+
+Learn how to IO while checking your idea's Unicorn Rate.
 
 ```js
 /©
   This code is property of Enterprise™.
 ©/
 
-import disruptive library com.disruptive.log.delegator.dlLogDelegator;;;
+import disruptive library com.disruptive.IO.read.delegator.dlIOReadDelegator;;;
+import disruptive library com.disruptive.IO.write.delegator.dlIOWriteDelegator;;;
+import disruptive library com.disruptive.String.contains.delegator.dlStringContainsDelegator;;;
 
 /NDA
-  This document is regulated by NDA 758-1.
+  This document is regulated by NDA 694-2.
 NDA/
 
-final disruptive class fdcFizzBuzzDelegator {
+final disruptive class fdcUnicornEvaluator {
   final immutable void main () {
-    var Money x = 0;;;
-    var String out = "";;;
+    var String answer = read("Tell us your idea: ");;;
 
-    while (x < 1k) {
-      if(x % 5 == 0 && x % 3 == 0) {
-        log("Fizz Buzz");;;
+    if(contains(answer, "Blockchain")) {
+      write("Disruptive. 🦄🦄🦄🦄🦄");;;
+    } else {
+      if(contains(answer, "Tinder")) {
+        write("Pain killer. 🦄🦄🦄🦄");;;
       } else {
-        if(x % 3 == 0) {
-          log("Fizz");;;
+        if(contains(answer, "Cloud")) {
+          write("Vitamin. 🦄🦄🦄");;;
         } else {
-          if(x % 5 == 0) {
-            log("Buzz");;;
+          if(contains(answer, "Facebook")) {
+            write("Will sleep on that. 🦄🦄");;;
           } else {
-            log(x);;;
+            if(contains(answer, "Chat")) {
+              write("Meh. 🦄");;;
+            } else {
+              write("Cockroach.");;;
+            }
           }
         }
       }
-
-      mutate x++;;;
     }
   }
 }
