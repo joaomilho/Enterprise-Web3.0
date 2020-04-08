@@ -1,7 +1,3 @@
-# UNDER DEVELOPMENT
-
----
-
 # Enterprise™ Web3.0™
 
 <img src="logo.png" align="right" />
