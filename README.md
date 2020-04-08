@@ -1,5 +1,20 @@
 # Enterprise™ Web3.0™
 
+GET IT NOW!
+
+```sh
+curl https://raw.githubusercontent.com/joaomilho/Enterprise-Web3.0/master/examples/fdcFizzBuzzDelegator.E%E2%84%A2 > fdcFizzBuzzDelegator.E™
+npx ETM eval fdcFizzBuzzDelegator.E™
+```
+
+TURBO MODE!
+
+```sh
+npx ETM eval fdcFizzBuzzDelegator.E™ --turbo
+```
+
+### What
+
 <img src="logo.png" align="right" />
 
 Enterprise™ Web3.0™ is a parser and compiler for the

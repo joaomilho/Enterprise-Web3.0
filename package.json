@@ -4,7 +4,7 @@
   "description": "Enterprise™ programming language for the Web3.0™",
   "main": "index.js",
   "author": "Juan Lulkin <maiz@lulk.in> (https://medium.com/@joaomilho/)",
-  "license": "Fuck Off",
+  "license": "/© This code is property of Enterprise™. ©/",
   "dependencies": {
     "cli-highlight": "^2.1.4",
     "colors": "^1.4.0",

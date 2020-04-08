@@ -40,4 +40,9 @@ require('yargs')
     handler: (argv) => {
       eval(compile(argv.input, argv.turbo))
     },
+  })
+  .command({
+    command: 'examples',
+    description: 'Downloads examples',
+    handler: (argv) => {},
   }).argv

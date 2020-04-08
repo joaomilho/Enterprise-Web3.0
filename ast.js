@@ -1,6 +1,10 @@
-const fs = require("fs");
-const enterprise = require("./enterprise");
+/*©
+  This code is property of Enterprise™.
+©*/
 
-module.exports = file => {
-  return enterprise.parse(fs.readFileSync(file, "utf8"));
-};
+const fs = require('fs')
+const enterprise = require('./enterprise')
+
+module.exports = (file) => {
+  return enterprise.parse(fs.readFileSync(file, 'utf8'))
+}

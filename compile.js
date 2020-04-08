@@ -1,3 +1,7 @@
+/*©
+  This code is property of Enterprise™.
+©*/
+
 const { highlight } = require('cli-highlight')
 
 const parseAST = require('./ast')

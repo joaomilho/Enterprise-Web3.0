@@ -1,11 +1,15 @@
+/*©
+  This code is property of Enterprise™.
+©*/
+
 class CompileError extends Error {
   constructor({ message, type, value, location }) {
-    super(message);
+    super(message)
 
-    this.type = type;
-    this.value = value;
-    this.location = location;
+    this.type = type
+    this.value = value
+    this.location = location
   }
 }
 
-module.exports = CompileError;
+module.exports = CompileError
