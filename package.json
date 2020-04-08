@@ -1,17 +1,22 @@
 {
-  "name": "enterprise-web3.0-tm",
-  "version": "3.0.XP™",
+  "name": "enterprise-web",
+  "version": "3.0.3-xp-tm",
   "description": "Enterprise™ programming language for the Web3.0™",
   "main": "index.js",
   "author": "Juan Lulkin <maiz@lulk.in> (https://medium.com/@joaomilho/)",
   "license": "Fuck Off",
   "dependencies": {
-    "pegjs": "^0.10.0",
     "cli-highlight": "^2.1.4",
     "colors": "^1.4.0",
+    "pegjs": "^0.10.0",
     "yargs": "^15.3.1"
   },
-  "binaries": {
-    "E™": "./E™"
+  "scripts": {
+    "test": "echo 'OK'"
+  },
+  "bin": {
+    "E™": "./E™",
+    "ETM": "./E™",
+    "enterprise-web": "enterprise-web"
   }
 }
