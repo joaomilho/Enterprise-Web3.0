@@ -1,6 +1,6 @@
 {
   "name": "enterprise-web",
-  "version": "3.0.5-xp-tm",
+  "version": "3.0.6-xp-tm",
   "description": "Enterprise™ programming language for the Web3.0™",
   "main": "index.js",
   "author": "Juan Lulkin <maiz@lulk.in> (https://medium.com/@joaomilho/)",
