@@ -1,6 +1,6 @@
 {
   "name": "enterprise-web",
-  "version": "3.0.3-xp-tm",
+  "version": "3.0.5-xp-tm",
   "description": "Enterprise™ programming language for the Web3.0™",
   "main": "index.js",
   "author": "Juan Lulkin <maiz@lulk.in> (https://medium.com/@joaomilho/)",
@@ -17,6 +17,6 @@
   "bin": {
     "E™": "./E™",
     "ETM": "./E™",
-    "enterprise-web": "enterprise-web"
+    "enterprise-web": "./E™"
   }
 }
